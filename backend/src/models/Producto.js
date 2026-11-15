@@ -27,6 +27,16 @@ const Producto = sequelize.define('Producto', {
     type: DataTypes.DECIMAL(10, 2),
     allowNull: false,
   },
+  stock_actual: {
+    type: DataTypes.DECIMAL(12, 3),
+    allowNull: true,
+    defaultValue: null,
+  },
+  stock_minimo: {
+    type: DataTypes.DECIMAL(12, 3),
+    allowNull: true,
+    defaultValue: null,
+  },
   es_activo: {
     type: DataTypes.BOOLEAN,
     defaultValue: true,

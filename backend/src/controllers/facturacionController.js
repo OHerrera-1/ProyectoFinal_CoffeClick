@@ -59,11 +59,12 @@ const crearFactura = async (req, res, next) => {
           }
         }
       } else {
-        const stockProducto = parseFloat(producto.precio_venta);
-        if (typeof producto.stock_reventa !== 'undefined' && producto.stock_reventa < item.cantidad) {
+        if (producto.stock_actual !== null && parseFloat(producto.stock_actual) < item.cantidad) {
           await transaction.rollback();
           return res.status(400).json({
             error: `Stock insuficiente del producto "${producto.nombre}"`,
+            stock_disponible: producto.stock_actual,
+            stock_requerido: item.cantidad,
           });
         }
       }
@@ -113,6 +114,13 @@ const crearFactura = async (req, res, next) => {
           await Insumo.increment(
             { stock_actual: -cantidadDescontar },
             { where: { id: recetaItem.insumo_id }, transaction }
+          );
+        }
+      } else {
+        if (producto.stock_actual !== null) {
+          await Producto.increment(
+            { stock_actual: -item.cantidad },
+            { where: { id: producto.id }, transaction }
           );
         }
       }
@@ -212,6 +220,11 @@ const anularFactura = async (req, res, next) => {
             { where: { id: recetaItem.insumo_id }, transaction }
           );
         }
+      } else if (producto && producto.stock_actual !== null) {
+        await Producto.increment(
+          { stock_actual: detalle.cantidad },
+          { where: { id: producto.id }, transaction }
+        );
       }
     }
 

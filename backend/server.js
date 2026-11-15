@@ -5,6 +5,7 @@ const { sequelize } = require('./src/config/database');
 require('./src/models/index');
 
 const facturacionRoutes = require('./src/routes/facturacion');
+const inventarioRoutes = require('./src/routes/inventario');
 const errorHandler = require('./src/middlewares/errorHandler');
 
 const app = express();
@@ -14,6 +15,7 @@ app.use(cors());
 app.use(express.json());
 
 app.use('/api/facturacion', facturacionRoutes);
+app.use('/api/inventario', inventarioRoutes);
 
 app.use(errorHandler);
 
