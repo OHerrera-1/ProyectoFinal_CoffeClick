@@ -1,6 +1,6 @@
 const { sequelize } = require('../config/database');
 const { Factura, DetalleFactura, Producto, Insumo, Receta, Cliente } = require('../models');
-const { calcularMontos } = require('../utils/ivaCalculator');
+const { calcularMontos, normalizarItems } = require('../utils/ivaCalculator');
 const { generarCorrelativo } = require('../utils/correlativoHelper');
 
 const crearFactura = async (req, res, next) => {
@@ -14,19 +14,18 @@ const crearFactura = async (req, res, next) => {
     return res.status(400).json({ error: 'El CCF requiere un cliente registrado' });
   }
 
-  if (!items || !Array.isArray(items) || items.length === 0) {
-    return res.status(400).json({ error: 'Se requiere al menos un producto' });
+ let itemsNormalizados;
+  try {
+    itemsNormalizados = normalizarItems(items);
+  } catch (error) {
+    return res.status(error.status || 400).json({ error: error.message });
   }
 
   const transaction = await sequelize.transaction();
+  
 
   try {
-    const productosIds = items.map(i => i.producto_id);
-    const productos = await Producto.findAll({
-      where: { id: productosIds, es_activo: true },
-      include: [{ model: Receta, as: 'receta', include: [{ model: Insumo, as: 'insumo' }] }],
-      transaction,
-    });
+    const productosIds = itemsNormalizados.map(i => i.producto_id);
 
     if (productos.length !== productosIds.length) {
       await transaction.rollback();
@@ -36,7 +35,7 @@ const crearFactura = async (req, res, next) => {
     const productosMap = {};
     productos.forEach(p => { productosMap[p.id] = p; });
 
-    const itemsConPrecio = items.map(item => ({
+     const itemsConPrecio = itemsNormalizados.map(item => ({
       ...item,
       precio_unitario: parseFloat(productosMap[item.producto_id].precio_venta),
       nombre_producto: productosMap[item.producto_id].nombre,
@@ -70,8 +69,8 @@ const crearFactura = async (req, res, next) => {
       }
     }
 
-    const { subtotal, iva_monto, total } = calcularMontos(itemsConPrecio);
-
+    const { subtotal, iva_monto, total, lineas } = calcularMontos(itemsConPrecio, tipo);
+  
     const numero_correlativo = await generarCorrelativo(tipo, transaction);
 
     let clienteNombre = nombre_cliente || 'Consumidor Final';
@@ -95,13 +94,13 @@ const crearFactura = async (req, res, next) => {
       cajero_id: cajero_id || null,
     }, { transaction });
 
-    const detalles = itemsConPrecio.map(item => ({
+    const detalles = lineas.map(linea => ({
       factura_id: factura.id,
-      producto_id: item.producto_id,
-      nombre_producto: item.nombre_producto,
-      cantidad: item.cantidad,
-      precio_unitario: item.precio_unitario,
-      subtotal_linea: parseFloat((item.precio_unitario * item.cantidad).toFixed(2)),
+      producto_id: linea.producto_id,
+      nombre_producto: linea.nombre_producto,
+      cantidad: linea.cantidad,
+      precio_unitario: linea.precio_unitario,
+      subtotal_linea: linea.subtotal_linea,
     }));
 
     await DetalleFactura.bulkCreate(detalles, { transaction });
