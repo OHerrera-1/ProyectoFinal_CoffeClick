@@ -2,6 +2,8 @@ require('dotenv').config();
 const express = require('express');
 const cors = require('cors');
 const { sequelize } = require('./src/config/database');
+const inventarioRoutes = require('./src/routes/inventario');
+const nominaRoutes = require('./src/routes/nomina');  
 require('./src/models/index');
 
 const facturacionRoutes = require('./src/routes/facturacion');
@@ -16,6 +18,7 @@ app.use(express.json());
 
 app.use('/api/facturacion', facturacionRoutes);
 app.use('/api/inventario', inventarioRoutes);
+app.use('/api/nomina', nominaRoutes); 
 
 app.use(errorHandler);
 
