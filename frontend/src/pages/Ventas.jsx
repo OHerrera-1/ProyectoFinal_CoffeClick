@@ -5,6 +5,9 @@ import '../styles/ventas.css';
 export default function Ventas() {
       const [carrito, setCarrito] = useState([]);
       const [busqueda, setBusqueda] = useState('');
+      const [nombreCliente, setNombreCliente] = useState('');
+const [tipoFactura, setTipoFactura] = useState('FCF');
+const [mostrarResumen, setMostrarResumen] = useState(false);
 
   function agregarProducto(producto) {
     setCarrito((actual) => {
@@ -71,6 +74,28 @@ export default function Ventas() {
 
         <section className="ventas__panel">
           <h2>Orden actual</h2>
+          <div className="ventas__datos">
+  <label htmlFor="nombreCliente">Nombre del cliente</label>
+  <input
+    id="nombreCliente"
+    type="text"
+    placeholder="Consumidor Final"
+    value={nombreCliente}
+    onChange={(evento) => setNombreCliente(evento.target.value)}
+  />
+
+  <label htmlFor="tipoFactura">Tipo de comprobante</label>
+  <select
+    id="tipoFactura"
+    value={tipoFactura}
+    onChange={(evento) => setTipoFactura(evento.target.value)}
+  >
+    <option value="FCF">Consumidor final</option>
+    <option value="CCF" disabled>
+      Crédito fiscal — pendiente de conectar clientes
+    </option>
+  </select>
+</div>
 {carrito.length === 0 ? (
   <p className="ventas__vacio">
     Todavía no agregaste productos.
@@ -124,6 +149,40 @@ export default function Ventas() {
 >
   Vaciar orden
 </button>
+<button
+  type="button"
+  onClick={() => setMostrarResumen(true)}
+>
+  Ver resumen de prueba
+</button>
+
+{mostrarResumen && (
+  <div className="ventas__panel">
+    <h3>Resumen de prueba</h3>
+    <ul>
+  {carrito.map((item) => (
+    <li key={item.id}>
+      {item.nombre} × {item.cantidad}
+      {' — '}
+      ${(item.precio * item.cantidad).toFixed(2)}
+    </li>
+  ))}
+</ul>
+    <p>Esta vista no registra una factura.</p>
+    <p>
+      Cliente: {nombreCliente.trim() || 'Consumidor Final'}
+    </p>
+    <p>Tipo: {tipoFactura}</p>
+    <p>Total: ${total.toFixed(2)}</p>
+
+    <button
+      type="button"
+      onClick={() => setMostrarResumen(false)}
+    >
+      Cerrar resumen
+    </button>
+  </div>
+)}
   </>
 )}
         </section>

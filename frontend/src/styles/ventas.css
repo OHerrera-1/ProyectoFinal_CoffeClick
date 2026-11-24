@@ -112,3 +112,24 @@
   background: var(--surface-steamed-milk);
   color: var(--coffee-espresso);
 }
+.ventas__datos {
+  display: grid;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.ventas__datos label {
+  font-weight: 600;
+  color: var(--coffee-mocha);
+}
+
+.ventas__datos input,
+.ventas__datos select {
+  width: 100%;
+  min-width: 0;
+  padding: 12px;
+  border: 1px solid var(--border-latte);
+  border-radius: var(--radius-sm);
+  background: var(--surface-steamed-milk);
+  color: var(--coffee-espresso);
+}
