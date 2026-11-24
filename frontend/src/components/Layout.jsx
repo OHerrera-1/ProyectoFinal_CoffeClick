@@ -1,14 +1,24 @@
 import React from 'react';
-import { NavLink, Outlet } from 'react-router-dom';
-import { Coffee, LayoutDashboard, Package } from 'lucide-react';
+import { NavLink, Outlet, useNavigate } from 'react-router-dom';
+import { Coffee, LayoutDashboard, Package, LogOut } from 'lucide-react';
+import { useAuth } from '../context/AuthContext';
 import '../styles/layout.css';
+import '../styles/login.css';
 
 export default function Layout() {
+  const { user, logout } = useAuth();
+  const navigate = useNavigate();
+
   const fechaHoy = new Date().toLocaleDateString('es-SV', {
     weekday: 'long',
     day: 'numeric',
     month: 'long',
   });
+
+  const handleLogout = () => {
+    logout();
+    navigate('/login', { replace: true });
+  };
 
   return (
     <div className="app-shell">
@@ -20,7 +30,7 @@ export default function Layout() {
             </div>
             <div>
               <div className="brand-title">CoffeClick</div>
-              <div className="brand-sub">Cafeter\u00eda Artesanal</div>
+              <div className="brand-sub">Cafetería Artesanal</div>
             </div>
           </div>
 
@@ -45,18 +55,22 @@ export default function Layout() {
         </div>
 
         <div className="sidebar-footer">
-          Sucursal San Salvador \u00b7 Turno Activo
+          Sucursal San Salvador · {user?.email}
         </div>
       </aside>
 
       <main className="main-area">
         <header className="floating-bar">
           <div className="welcome-info">
-            <h2>Bienvenido a CoffeClick</h2>
+            <h2>Hola, {user?.nombre || 'Equipo'}</h2>
             <p style={{ textTransform: 'capitalize' }}>{fechaHoy}</p>
           </div>
           <div className="bar-actions">
-            <span className="role-pill">Barra Operativa</span>
+            <span className="role-pill">{user?.rol || 'Staff'}</span>
+            <button type="button" className="btn-logout" onClick={handleLogout}>
+              <LogOut size={16} />
+              <span>Salir</span>
+            </button>
           </div>
         </header>
 
