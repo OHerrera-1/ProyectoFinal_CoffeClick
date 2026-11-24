@@ -4,6 +4,7 @@ import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Inventario from './pages/Inventario';
 import Ventas from './pages/Ventas';
+import Facturas from './pages/Facturas';
 
 
 export default function App() {
@@ -14,6 +15,7 @@ export default function App() {
           <Route index element={<Dashboard />} />
           <Route path="inventario" element={<Inventario />} />
           <Route path="ventas" element={<Ventas />} />
+          <Route path="facturas" element={<Facturas />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
