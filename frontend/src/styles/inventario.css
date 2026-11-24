@@ -1,0 +1,95 @@
+.inventory-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-between;
+  align-items: center;
+  background: var(--surface-card);
+  padding: 1rem 1.25rem;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--border-latte);
+  margin-bottom: 1.25rem;
+}
+
+.search-input {
+  flex: 1;
+  min-width: 240px;
+  padding: 0.65rem 0.95rem;
+  border: 1px solid var(--border-latte);
+  border-radius: var(--radius-sm);
+  background: var(--surface-steamed-milk);
+  font-size: 0.92rem;
+}
+
+.filter-select {
+  padding: 0.65rem 0.95rem;
+  border: 1px solid var(--border-latte);
+  border-radius: var(--radius-sm);
+  background: var(--surface-steamed-milk);
+  font-size: 0.92rem;
+}
+
+.table-card {
+  background: var(--surface-card);
+  border: 1px solid var(--border-latte);
+  border-radius: var(--radius-md);
+  box-shadow: var(--shadow-soft);
+  overflow-x: auto;
+}
+
+.inventory-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+}
+
+.inventory-table th {
+  background: var(--surface-steamed-milk);
+  color: var(--coffee-french-roast);
+  font-size: 0.82rem;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+  padding: 0.95rem 1.2rem;
+  border-bottom: 1px solid var(--border-latte);
+}
+
+.inventory-table td {
+  padding: 0.95rem 1.2rem;
+  border-bottom: 1px solid var(--border-latte);
+  font-size: 0.92rem;
+}
+
+.status-pill {
+  padding: 0.28rem 0.7rem;
+  border-radius: 999px;
+  font-size: 0.78rem;
+  font-weight: 700;
+}
+
+.status-ok {
+  background: var(--accent-botanical-soft);
+  color: var(--accent-botanical-green);
+}
+
+.status-low {
+  background: var(--status-warning-bg);
+  color: var(--status-warning-text);
+}
+
+.stock-actions {
+  display: flex;
+  gap: 0.45rem;
+}
+
+.btn-step {
+  width: 30px;
+  height: 30px;
+  border-radius: 6px;
+  background: var(--bg-pantone-9180);
+  color: var(--coffee-espresso);
+  font-weight: 700;
+}
+
+.btn-step:hover {
+  background: var(--accent-caramel-gold);
+}

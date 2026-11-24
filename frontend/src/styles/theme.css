@@ -1,0 +1,55 @@
+:root {
+  --bg-pantone-9180: #F4EFE6;
+  --surface-steamed-milk: #FBF9F5;
+  --surface-card: #FFFFFF;
+  --coffee-espresso: #231712;
+  --coffee-french-roast: #3E2723;
+  --coffee-mocha: #6D4C41;
+  --accent-caramel-gold: #C88A4B;
+  --accent-caramel-hover: #B37639;
+  --accent-botanical-green: #3B6E52;
+  --accent-botanical-soft: #E6F0EA;
+  --status-warning-bg: #FDF3E3;
+  --status-warning-text: #9A5B13;
+  --status-danger-bg: #FDECEA;
+  --status-danger-text: #A62626;
+  --border-latte: #E5DDD0;
+
+  --font-display: 'Playfair Display', Georgia, serif;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 20px;
+  --shadow-soft: 0 8px 24px rgba(35, 23, 18, 0.06);
+  --shadow-float: 0 12px 32px rgba(35, 23, 18, 0.1);
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--bg-pantone-9180);
+  color: var(--coffee-espresso);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--coffee-espresso);
+}
+
+button {
+  font-family: inherit;
+  cursor: pointer;
+  border: none;
+  transition: all 0.2s ease;
+}
+
+input, select {
+  font-family: inherit;
+}
