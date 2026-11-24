@@ -1,0 +1,114 @@
+.ventas {
+  display: grid;
+  gap: 24px;
+}
+
+.ventas__encabezado p {
+  margin-top: 8px;
+  color: var(--coffee-mocha);
+}
+
+.ventas__contenido {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) 360px;
+  gap: 24px;
+  align-items: start;
+}
+
+.ventas__panel {
+  min-width: 0;
+  padding: 24px;
+  background: var(--surface-card);
+  border: 1px solid var(--border-latte);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-soft);
+}
+
+.ventas__panel h2 {
+  margin-bottom: 16px;
+}
+
+.ventas__vacio {
+  padding: 32px 0;
+  color: var(--coffee-mocha);
+  text-align: center;
+}
+
+@media (max-width: 1100px) {
+  .ventas__contenido {
+    grid-template-columns: 1fr;
+  }
+} 
+.ventas__productos {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 16px;
+}
+
+.ventas__producto {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding: 20px;
+  background: var(--surface-steamed-milk);
+  border: 1px solid var(--border-latte);
+  border-radius: var(--radius-md);
+}
+
+.ventas__producto span {
+  font-size: 13px;
+  color: var(--coffee-mocha);
+}
+
+.ventas__producto p {
+  color: var(--coffee-mocha);
+}
+
+.ventas__producto strong {
+  margin-top: auto;
+  font-size: 22px;
+  color: var(--accent-botanical-green);
+}
+.ventas button {
+  padding: 10px 16px;
+  background: var(--accent-caramel-gold);
+  color: var(--coffee-espresso);
+  border-radius: var(--radius-sm);
+  font-weight: 600;
+}
+
+.ventas button:hover {
+  background: var(--accent-caramel-hover);
+}
+
+.ventas__panel ul {
+  list-style: none;
+}
+
+.ventas__panel li {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 12px;
+  padding: 14px 0;
+  border-bottom: 1px solid var(--border-latte);
+}
+
+.ventas__panel li button {
+  background: var(--status-danger-bg);
+  color: var(--status-danger-text);
+}
+
+.ventas__panel li button:hover {
+  background: var(--border-latte);
+}
+.ventas input[type="search"] {
+  width: 100%;
+  margin-bottom: 20px;
+  padding: 12px 16px;
+  border: 1px solid var(--border-latte);
+  border-radius: var(--radius-sm);
+  background: var(--surface-steamed-milk);
+  color: var(--coffee-espresso);
+}

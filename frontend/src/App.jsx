@@ -3,6 +3,8 @@ import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
 import Layout from './components/Layout';
 import Dashboard from './pages/Dashboard';
 import Inventario from './pages/Inventario';
+import Ventas from './pages/Ventas';
+
 
 export default function App() {
   return (
@@ -11,6 +13,7 @@ export default function App() {
         <Route path="/" element={<Layout />}>
           <Route index element={<Dashboard />} />
           <Route path="inventario" element={<Inventario />} />
+          <Route path="ventas" element={<Ventas />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
