@@ -5,6 +5,7 @@ import Dashboard from './pages/Dashboard';
 import Inventario from './pages/Inventario';
 import Ventas from './pages/Ventas';
 import Facturas from './pages/Facturas';
+import Empleados from './pages/Empleados';
 
 
 export default function App() {
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="inventario" element={<Inventario />} />
           <Route path="ventas" element={<Ventas />} />
           <Route path="facturas" element={<Facturas />} />
+          <Route path="empleados" element={<Empleados />} />
         </Route>
         <Route path="*" element={<Navigate to="/" replace />} />
       </Routes>
